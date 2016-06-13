@@ -1,6 +1,6 @@
-﻿@model SCCodeGenerator.ControllerGen.ViewModels.ControllerOutput
+﻿@model SCCodeGenerator.ControllerGen.ViewModels.ControllerOutputViewModel
 
-<h2>Generate Controller</h2>
+<h2>Generate Controller Code</h2>
 
 <form asp-action="ControllerCreateResults">
     <div class="form-horizontal">
@@ -8,8 +8,15 @@
             <label asp-for="ControllerName" class="col-md-2 control-label"></label>
             <div class="col-md-10">
                 <input asp-for="ControllerName" autofocus class="form-control" />
+            </div>          
+        </div>
+        <div class="form-group">
+            <label asp-for="AutoMapperSupport" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="AutoMapperSupport" autofocus class="form-control" />
             </div>
         </div>
+
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">

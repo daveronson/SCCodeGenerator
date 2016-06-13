@@ -18,12 +18,28 @@ namespace SCCodeGenerator.ControllerGen
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult ControllerCreateResults(ControllerOutput controllerOutputViewModel)
+        public IActionResult ControllerCreateResults(ControllerOutputViewModel controllerOutputViewModel)
         {
             var controllerGenBusinessLogic = new ControllerGenBusinessLogic();
-            controllerOutputViewModel.ControllerCode = controllerGenBusinessLogic.ControllerClassGen(controllerOutputViewModel.ControllerName);
+            controllerOutputViewModel.ControllerCode = controllerGenBusinessLogic.ControllerClassGen(controllerOutputViewModel);
 
             return View(controllerOutputViewModel);
         }
+
+        public IActionResult ManageEntityCreate()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult ManageEntityCreateResults(ManageEntityOutputViewModel manageEntityOutputViewModel)
+        {
+            var manageEntityBusinessLogic = new ManageEntityBusinessLogic();
+            manageEntityOutputViewModel.ManageEntityCode = manageEntityBusinessLogic.ManageEntityClassGen(manageEntityOutputViewModel);
+
+            return View(manageEntityOutputViewModel);
+        }
+
     }
 }
