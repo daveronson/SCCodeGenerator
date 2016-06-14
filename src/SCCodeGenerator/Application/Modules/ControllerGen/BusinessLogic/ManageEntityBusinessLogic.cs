@@ -21,17 +21,27 @@ namespace SCCodeGenerator.ControllerGen.BusinessLogic
             string manageEntityClassCode = null;
             manageEntityClassCode += "public class Manage" + entityName + lb;
             manageEntityClassCode += "{" + lb;
-            manageEntityClassCode += tab + "private readonly SCLifeDbContext db;" + lb;
-            manageEntityClassCode += tab + "private IMapper mapper { get; set; }" + lb;
-            manageEntityClassCode += lb;
 
+            manageEntityClassCode += ManageEntityClassVarsCode();
             manageEntityClassCode += ManageEntityConstructorCode(entityName);          
             manageEntityClassCode += ManageEntityIndexCode(entityName);
             manageEntityClassCode += ManageEntityDetailsCode(entityName);
-            
+            manageEntityClassCode += ManageEntityCreateCode(entityName);
+            manageEntityClassCode += ManageEntityUpdateCode(entityName);
+
             manageEntityClassCode += "}" + lb;
 
             return manageEntityClassCode;
+        }
+
+        private string ManageEntityClassVarsCode()
+        {
+            string manageEntityClassVarsCode = null;
+            manageEntityClassVarsCode += tab + "private readonly SCLifeDbContext db;" + lb;
+            manageEntityClassVarsCode += tab + "private IMapper mapper { get; set; }" + lb;
+            manageEntityClassVarsCode += lb;
+
+            return manageEntityClassVarsCode;
         }
 
         private string ManageEntityConstructorCode(string entityName)
@@ -96,6 +106,43 @@ namespace SCCodeGenerator.ControllerGen.BusinessLogic
             manageEntityDetailsCode += lb;
 
             return manageEntityDetailsCode;
+        }
+
+        private string ManageEntityCreateCode(string entityName)
+        {
+            string entityNameLocal = Char.ToLowerInvariant(entityName[0]) + entityName.Substring(1);
+            string entityNameShort = Char.ToLowerInvariant(entityName[0]).ToString();
+            string manageEntityCreateCode = null;
+
+
+            manageEntityCreateCode += tab + "public async Task Create" + entityName + "(" + entityName + "ViewModel " + entityNameLocal + "VM)" + lb;
+            manageEntityCreateCode += tab + "{" + lb;
+            manageEntityCreateCode += tab + tab + entityName + " " + entityNameLocal + " = mapper.Map" + lt + entityName + "ViewModel, " + entityName + gt + "(" + entityNameLocal + "VM);" + lb;
+
+            manageEntityCreateCode += tab + tab + "db." + entityName + ".Add(" + entityNameLocal + ");" + lb;
+            manageEntityCreateCode += tab + tab + "await db.SaveChangesAsync();" + lb;
+
+            manageEntityCreateCode += tab + tab + "return;" + lb;
+            manageEntityCreateCode += tab + "}" + lb;
+            manageEntityCreateCode += tab + lb;
+
+            return manageEntityCreateCode;
+        }
+
+        private string ManageEntityUpdateCode(string entityName)
+        {
+            string entityNameLocal = Char.ToLowerInvariant(entityName[0]) + entityName.Substring(1);
+            string entityNameShort = Char.ToLowerInvariant(entityName[0]).ToString();
+            string manageEntityUpdateCode = null;
+
+            manageEntityUpdateCode += tab + "public async Task Update" + entityName + "(" + entityName + "ViewModel " + entityNameLocal + "ViewModel)" + lb;
+            manageEntityUpdateCode += tab + "{" + lb;
+            manageEntityUpdateCode += tab + tab + "var " + entityNameLocal + " = mapper.Map" + lt + entityName + "ViewModel, " + entityName + gt + "(" + entityNameLocal + "ViewModel);" + lb;
+            manageEntityUpdateCode += tab + tab + "db.Update(" + entityNameLocal + ");" + lb;
+            manageEntityUpdateCode += tab + tab + "await db.SaveChangesAsync();" + lb;
+            manageEntityUpdateCode += tab + "}" + lb;
+
+            return manageEntityUpdateCode;
         }
     }
 }

@@ -8,10 +8,10 @@ namespace SCCodeGenerator.ControllerGen.ViewModels
 {
     public class ControllerOutputViewModel
     {
-        [Display(Name="Controller Name")]
-        public string ControllerName { get; set; }
-        [Display(Name = "AutoMapper Support?")]
-        public bool AutoMapperSupport { get; set; }
+        [Display(Name="Entity Name")]
+        public string EntityName { get; set; }
+        [Display(Name = "DbContext Name")]
+        public string DbContextName { get; set; }
         public string ControllerCode { get; set; }
         
 
