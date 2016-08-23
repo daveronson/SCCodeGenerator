@@ -8,6 +8,7 @@ namespace SCCodeGenerator.ControllerGen.ViewModels
 {
     public class ControllerOutputViewModel
     {
+        [Required]
         [Display(Name = "Controller Name")]
         public string ControllerName { get; set; }
         [Display(Name="Entity Name")]

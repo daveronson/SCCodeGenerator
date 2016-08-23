@@ -147,9 +147,9 @@ namespace SCCodeGenerator.ControllerGen.BusinessLogic
             string entityNameShort = Char.ToLowerInvariant(entityName[0]).ToString();
             string manageEntityCreateCode = null;
 
-            manageEntityCreateCode += tab + tab + "public async Task Create" + entityName + "(" + entityName + "ViewModel " + entityNameLocal + "VM)" + lb;
+            manageEntityCreateCode += tab + tab + "public async Task Create" + entityName + "(" + entityName + "ViewModel " + entityNameLocal + "ViewModel)" + lb;
             manageEntityCreateCode += tab + tab + "{" + lb;
-            manageEntityCreateCode += tab + tab + tab + entityName + " " + entityNameLocal + " = mapper.Map" + lt + entityName + "ViewModel, " + entityName + gt + "(" + entityNameLocal + "VM);" + lb;
+            manageEntityCreateCode += tab + tab + tab + entityName + " " + entityNameLocal + " = mapper.Map" + lt + entityName + "ViewModel, " + entityName + gt + "(" + entityNameLocal + "ViewModel);" + lb;
             manageEntityCreateCode += lb;
             manageEntityCreateCode += tab + tab + tab + "db." + entityName + ".Add(" + entityNameLocal + ");" + lb;
             manageEntityCreateCode += tab + tab + tab + "await db.SaveChangesAsync();" + lb;

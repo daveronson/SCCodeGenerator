@@ -20,10 +20,15 @@ namespace SCCodeGenerator.ControllerGen
         [ValidateAntiForgeryToken]
         public IActionResult ControllerCreateResults(ControllerOutputViewModel controllerOutputViewModel)
         {
-            var controllerGenBusinessLogic = new ControllerGenBusinessLogic();
-            controllerOutputViewModel.ControllerCode = controllerGenBusinessLogic.ControllerClassGen(controllerOutputViewModel);
+            if (ModelState.IsValid)
+            {
+                var controllerGenBusinessLogic = new ControllerGenBusinessLogic();
+                controllerOutputViewModel.ControllerCode = controllerGenBusinessLogic.ControllerClassGen(controllerOutputViewModel);
 
-            return View(controllerOutputViewModel);
+                return View(controllerOutputViewModel);
+            }
+
+            return View("ControllerCreate", controllerOutputViewModel);
         }
 
         public IActionResult ManageEntityCreate()
